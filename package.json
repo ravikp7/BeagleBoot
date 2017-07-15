@@ -1,0 +1,41 @@
+{
+  "name": "beagleboot",
+  "version": "0.0.1",
+  "description": "Flashing tool for BeagleBone hardware",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack -d && electron .",
+    "watch": "webpack-dev-server",
+    "electron-rebuild": "electron-rebuild",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ravikp7/BeagleBoot.git"
+  },
+  "keywords": [
+    "BeagleBone",
+    "Flash"
+  ],
+  "author": "Ravi Kumar Prasad (7ravikp@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ravikp7/BeagleBoot/issues"
+  },
+  "homepage": "https://github.com/ravikp7/BeagleBoot#readme",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "electron": "^1.6.11",
+    "electron-rebuild": "^1.5.11",
+    "webpack": "^3.1.0",
+    "webpack-dev-server": "^2.5.1"
+  }
+}
