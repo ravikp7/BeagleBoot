@@ -18,13 +18,31 @@
     background: #078cb2;
 }
 
-img{
+#blocks img{
     padding-top: 10px;
     max-width: 60%;
     max-height: 60%;
     
 }
 
-#task{
-    color: white;
+#navbar button{
+    background: #00284f;
+    height: 40px;
+    width: 40px;
+    margin: 0;
+    text-align: center;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+#navbar img{
+    padding-top: 7px;
+    max-width: 80%;
+    max-height: 80%; 
+}
+
+#navbar button:active{
+    background: #001d3a;
 }

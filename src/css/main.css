@@ -1,13 +1,28 @@
-wrapper{
-    display: flex;
+.wrapper{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
 }
 
 body{
     background: #fcf7ed;
+    margin: 0;
 }
 
 #blocks{
     display: flex;
     justify-content: space-between;
     margin: 50px;
+}
+
+#root{
+    height: 100%;
+    margin: 0px;
+    overflow: hidden;
+}
+
+.Text{
+    color: white;
+    font-family: 'Arial';
 }
