@@ -1,0 +1,30 @@
+#blocks button{
+    background: #de7224;
+    height: 140px;
+    width: 140px;
+    margin: 0;
+    text-align: center;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+#blocks button:hover{
+    background: #078cd9;
+}
+
+#blocks button:active{
+    background: #078cb2;
+}
+
+img{
+    padding-top: 10px;
+    max-width: 60%;
+    max-height: 60%;
+    
+}
+
+#task{
+    color: white;
+}
