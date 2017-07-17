@@ -34,3 +34,9 @@ body{
     width: 100%;
     justify-content: center;
 }
+
+#info{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}

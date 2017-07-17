@@ -3,6 +3,7 @@ require('../../css/main.css');
 require('../../css/nav.css');
 import Block from './Block';
 import Progress from './progress';
+import Info from './info';
 
 // Main App
 class App extends React.Component{
@@ -28,6 +29,9 @@ class App extends React.Component{
                 </div>
                 <div id='prog'>
                     <Progress value='30'/>
+                </div>
+                <div id='info'>
+                    <Info value="Info here!"/>
                 </div>
             </div>
         );
