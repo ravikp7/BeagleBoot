@@ -20,6 +20,7 @@ class App extends React.Component{
                         </ul>
                     </nav>
                 </div>
+                <div id='mainBody'>
                 <div id='bl'>    
                     <section id='blocks'>
                         <Block id='usb' task='USB Mass Storage' imgURL='./images/usb-memory.png'/>
@@ -32,6 +33,7 @@ class App extends React.Component{
                 </div>
                 <div id='info'>
                     <Info value="Info here!"/>
+                </div>
                 </div>
                 <div id='footer'>
                     Footer Content here

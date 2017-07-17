@@ -50,3 +50,7 @@ body{
     display: flex;
     justify-content: center;
 }
+
+#mainBody{
+    height: 335px;
+}
