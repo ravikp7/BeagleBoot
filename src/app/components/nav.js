@@ -4,11 +4,11 @@ require('../../css/nav.css');
 
 function Navbar(props){
     return(
-        <div id='navContain'>
-            <nav>
+        <div className='pane'>
+            <nav className='navbar'>
                 <ul>
-                    <li id='button'><Block task='' imgURL='./images/back.png'/></li>
-                    <li id='headerText'>{this.props.header}</li>
+                    <li id='button'><Block handleClick={props.handleClick} task='' imgURL='./images/back.png'/></li>
+                    <li id='headerText'><h3 className='Text'>{props.header}</h3></li>
                 </ul>
             </nav>
         </div>
