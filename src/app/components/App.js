@@ -20,9 +20,9 @@ class App extends React.Component{
                 </div>
                 <div id='bl'>    
                     <section id='blocks'>
-                        <Block task='USB Mass Storage' imgURL='./images/usb-memory.png'/>
-                        <Block task='Select Image' imgURL='./images/image.png'/>
-                        <Block task='Flash' imgURL='./images/flash.png'/>
+                        <Block id='usb' task='USB Mass Storage' imgURL='./images/usb-memory.png'/>
+                        <Block id='img' task='Select Image' imgURL='./images/image.png'/>
+                        <Block id='flash' task='Flash' imgURL='./images/flash.png'/>
                     </section>
                 </div>
             </div>

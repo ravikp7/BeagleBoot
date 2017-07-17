@@ -5,6 +5,7 @@ class Block extends React.Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.state = {ButtonState: {usb: false, img: true, flash: true}};
     }
 
     handleClick(){
@@ -14,7 +15,7 @@ class Block extends React.Component{
     render(){
 
         return(
-            <button className='block' onClick={this.handleClick}>
+            <button className='block' onClick={this.handleClick} disabled={this.state.ButtonState[this.props.id]}>
                 <img src={this.props.imgURL}/>
                 <h4 className='Text'>{this.props.task}</h4>
             </button>

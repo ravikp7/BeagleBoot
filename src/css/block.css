@@ -7,14 +7,14 @@
     border-radius: 15px;
     outline: none;
     border: none;
+}
+
+#blocks button:enabled:hover{
+    background: #078cd9;
     cursor: pointer;
 }
 
-#blocks button:hover{
-    background: #078cd9;
-}
-
-#blocks button:active{
+#blocks button:enabled:active{
     background: #078cb2;
 }
 
