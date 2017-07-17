@@ -33,6 +33,9 @@ class App extends React.Component{
                 <div id='info'>
                     <Info value="Info here!"/>
                 </div>
+                <div id='footer'>
+                    Footer Content here
+                </div>
             </div>
         );
     }

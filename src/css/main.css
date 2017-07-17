@@ -40,3 +40,13 @@ body{
     width: 100%;
     justify-content: center;
 }
+
+#footer{
+    background: #00284f;
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
