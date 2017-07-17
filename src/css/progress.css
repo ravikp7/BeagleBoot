@@ -1,0 +1,15 @@
+#progressContainer{
+    height: 8px;
+    width: 50%;
+    background-color: lightgrey;
+    border-radius: 5px;
+    display: flex;
+}
+
+#progressBar{
+    justify-content: center;
+    background-color: #078cd9;
+    border-radius: 5px;
+    color: white;
+}
+

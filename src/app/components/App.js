@@ -2,6 +2,7 @@ var React = require('react');
 require('../../css/main.css');
 require('../../css/nav.css');
 import Block from './Block';
+import Progress from './progress';
 
 // Main App
 class App extends React.Component{
@@ -24,6 +25,9 @@ class App extends React.Component{
                         <Block id='img' task='Select Image' imgURL='./images/image.png'/>
                         <Block id='flash' task='Flash' imgURL='./images/flash.png'/>
                     </section>
+                </div>
+                <div id='prog'>
+                    <Progress value='30'/>
                 </div>
             </div>
         );
