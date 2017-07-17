@@ -4,6 +4,7 @@ require('../../css/nav.css');
 import Block from './Block';
 import MainPage from './mainPage';
 import Settings from './settings';
+import About from './about';
 
 // Main App
 class App extends React.Component{
@@ -38,7 +39,7 @@ class App extends React.Component{
             case 'settings': WindowComponent = <Settings handleClick={this.mainClick}/>;
             break;
 
-            case 'about': WindowComponent = <About/>;
+            case 'about': WindowComponent = <About handleClick={this.mainClick}/>;
             break;
         }
 
@@ -50,7 +51,7 @@ class App extends React.Component{
                             <li id='brand'><h1 className='Text'>BeagleBoot</h1></li>
                             <li id='brand-text'><h5 className='Text'>Flash BeagleBone board quickly!</h5></li>
                             <li id='button'><Block task='' imgURL='./images/settings.png' handleClick={this.settingsClick}/></li>
-                            <li id='button'><Block task='' imgURL='./images/info.png'/></li>
+                            <li id='button'><Block task='' imgURL='./images/info.png' handleClick={this.aboutClick}/></li>
                         </ul>
                     </nav>
                 </div>
