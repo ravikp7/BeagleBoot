@@ -45,7 +45,7 @@ class App extends React.Component{
         return(
             <div className='wrapper'>
                 <div className='pane'>
-                    <nav className='navbar'>
+                    <nav className='navbar' id='mainNav'>
                         <ul>
                             <li id='brand'><h1 className='Text'>BeagleBoot</h1></li>
                             <li id='brand-text'><h5 className='Text'>Flash BeagleBone board quickly!</h5></li>

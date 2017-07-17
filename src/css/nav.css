@@ -3,9 +3,10 @@ nav ul{
     list-style-type: none;
     padding: 0;
     display: flex;
+    text-align: center;
 }
 
-nav li{
+#mainNav li{
     padding: 0px 10px 0px 10px;
 }
 
@@ -58,4 +59,10 @@ nav li{
 
 .navbar button:active{
     background: #001d3a;
+}
+
+#navbarPage{
+    height: 50px;
+    overflow: hidden;
+    line-height: 0px;
 }
