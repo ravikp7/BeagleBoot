@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/ravikp7/BeagleBoot#readme",
   "dependencies": {
+    "beagle-boot": "^1.0.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
