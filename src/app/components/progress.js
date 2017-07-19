@@ -4,13 +4,12 @@ require('../../css/progress.css');
 class Progress extends React.Component{
     constructor(props){
         super(props);
-        this.state = {width: this.props.value};
     }
 
     render(){
-
+        
         const divStyle = {
-            width: 3.5*this.state.width
+            width: 3.5*this.props.value
         };
 
         return(
