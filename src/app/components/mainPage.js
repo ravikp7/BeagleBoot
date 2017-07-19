@@ -34,9 +34,9 @@ class MainPage extends React.Component{
             <div>
                 <div id='bl'>    
                     <section id='blocks'>
-                        <Block id='usb' task='USB Mass Storage' imgURL='./images/usb-memory.png' handleClick={this.umsClick}/>
-                        <Block id='img' task='Select Image' imgURL='./images/image.png'/>
-                        <Block id='flash' task='Flash' imgURL='./images/flash.png'/>
+                        <Block id='usb' task='USB Mass Storage' imgURL='./assets/usb-memory.png' handleClick={this.umsClick}/>
+                        <Block id='img' task='Select Image' imgURL='./assets/image.png'/>
+                        <Block id='flash' task='Flash' imgURL='./assets/flash.png'/>
                     </section>
                 </div>
                 <div id='prog'>

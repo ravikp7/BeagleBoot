@@ -50,8 +50,8 @@ class App extends React.Component{
                         <ul>
                             <li id='brand'><h1 className='Text'>BeagleBoot</h1></li>
                             <li id='brand-text'><h5 className='Text'>Flash BeagleBone board quickly!</h5></li>
-                            <li id='button'><Block task='' imgURL='./images/settings.png' handleClick={this.settingsClick}/></li>
-                            <li id='button'><Block task='' imgURL='./images/info.png' handleClick={this.aboutClick}/></li>
+                            <li id='button'><Block task='' imgURL='./assets/settings.png' handleClick={this.settingsClick}/></li>
+                            <li id='button'><Block task='' imgURL='./assets/info.png' handleClick={this.aboutClick}/></li>
                         </ul>
                     </nav>
                 </div>
