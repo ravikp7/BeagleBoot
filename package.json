@@ -9,7 +9,7 @@
     "watch": "webpack-dev-server",
     "electron-rebuild": "electron-rebuild",
     "build": "webpack",
-    "build-test": "webpack -d && webpack-dev-server --content-base src/ --inline --hot --port 1234"
+    "build-test": "webpack && webpack-dev-server --inline --hot --port 1234"
   },
   "repository": {
     "type": "git",
