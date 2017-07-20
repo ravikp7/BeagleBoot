@@ -5,7 +5,7 @@ class Block extends React.Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
-        this.state = {ButtonState: {usb: false, img: true, flash: true}};
+        this.state = {ButtonState: {usb: false, img: false, flash: false}};
     }
 
     handleClick(){
