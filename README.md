@@ -2,7 +2,7 @@
 A cross platform flasher/updater app for BeagleBone hardware.
 
 ## Installation
-1. Dependencies install
+1. Install dependencies
 ```
 npm install
 ```
@@ -10,7 +10,8 @@ npm install
 ```
 npm run electron-rebuild
 ```
-3. Building static `build/bundle.js` from `src/` and starting `webpack-dev` server to see live code changes. Serves at `localhost:1234`
+#### For development
+3. Building static `src/build/bundle.js` from `src/index.js` and starting `webpack-dev` server to update js (including UI components) without refresh via HMR for faster development. Serves at `localhost:1234`
 ```
 npm run build-test
 ``` 
@@ -18,7 +19,12 @@ npm run build-test
 ```
 sudo npm start
 ```
-4. Once, build is done, distribution version of app can be run which doesn't load server's served page but use the static files.
+#### For distribution version
+3. Building static `src/build/bundle.js` from `src/index.js`
+```
+npm run build
+```
+4. Start electron app.
 ```
 sudo npm run start-electron
 ```
