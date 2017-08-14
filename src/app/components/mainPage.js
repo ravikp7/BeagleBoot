@@ -17,7 +17,17 @@ var IPCserverStarted;   // Promise, returns socket on resolution
 class MainPage extends React.Component{
     constructor(props){
         super(props);
-        this.state = {progressValue: 0, infoText: 'Go ahead! click USB Mass Storage button to begin'};
+        this.state = {
+            progress: {
+                value: 0,
+                infoText: 'Go ahead! click USB Mass Storage button to begin'
+            },
+            buttonState: {
+                ums: true,
+                img: false,
+                flash: false
+            }
+        };
         this.umsClick = this.umsClick.bind(this);
         this.selectImage = this.selectImage.bind(this);
         this.writeImage = this.writeImage.bind(this);
@@ -36,7 +46,19 @@ class MainPage extends React.Component{
                 var status = JSON.parse(data);
             }
             catch(e){ }
-            if(status && status.description) this.setState(()=>({progressValue: status.complete, infoText: status.description}));
+            if(status && status.description) this.setState(function(prevState){
+                return {
+                    progress: {
+                        value: status.complete,
+                        infoText: status.description
+                    },
+                    buttonState:{
+                        ums: prevState.buttonState.ums,
+                        img: prevState.buttonState.img,
+                        flash: prevState.buttonState.flash
+                    }
+                }
+            });
         }.bind(this));
     }
 
@@ -114,16 +136,16 @@ class MainPage extends React.Component{
             <div>
                 <div id='bl'>    
                     <section id='blocks'>
-                        <Block disabled={false} task='USB Mass Storage' imgURL='./assets/usb-memory.png' handleClick={this.umsClick}/>
-                        <Block disabled={true} task='Select Image' imgURL='./assets/image.png' handleClick={this.selectImage}/>
-                        <Block disabled={true} task='Flash' imgURL='./assets/flash.png' handleClick={this.writeImage}/>
+                        <Block disabled={!this.state.buttonState.ums} task='USB Mass Storage' imgURL='./assets/usb-memory.png' handleClick={this.umsClick}/>
+                        <Block disabled={!this.state.buttonState.img} task='Select Image' imgURL='./assets/image.png' handleClick={this.selectImage}/>
+                        <Block disabled={!this.state.buttonState.flash} task='Flash' imgURL='./assets/flash.png' handleClick={this.writeImage}/>
                     </section>
                 </div>
                 <div id='prog'>
-                    <Progress value={this.state.progressValue}/>
+                    <Progress value={this.state.progress.value}/>
                 </div>
                 <div id='info'>
-                    <Info value={this.state.infoText}/>
+                    <Info value={this.state.progress.infoText}/>
                 </div>
             </div>
         );
