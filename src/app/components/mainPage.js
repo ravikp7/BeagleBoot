@@ -76,6 +76,20 @@ class MainPage extends React.Component{
                     }
                 }
             });
+
+            if(status && status.type)this.setState((prevState)=>{
+                return {
+                    progress: {
+                        value: status.percentage,
+                        infoText: 'Writing Image => Percentage: '+status.percentage.toFixed(2)+'%  ---- Speed: '+(status.speed/(1024*1024)).toFixed(2)+'MB/s ---- ETA: '+Math.floor(status.eta/60)+' min.'
+                    },
+                    buttonState:{
+                        ums: false,
+                        img: false,
+                        flash: false
+                    }
+                }
+            });
         }.bind(this));
     }
 
