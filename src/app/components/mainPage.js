@@ -5,6 +5,8 @@ const fork = window.require('child_process').fork;
 const sudo = window.require('sudo-prompt');
 const ipc = window.require('node-ipc');
 const fs = window.require('fs');
+const drivelist = window.require('drivelist');
+const path = window.require('path');
 
 // React Components
 import Block from './Block';
@@ -12,6 +14,7 @@ import Progress from './progress';
 import Info from './info';
 
 var IPCserverStarted;   // Promise, returns socket on resolution
+var imagePath;
 
 
 class MainPage extends React.Component{
@@ -125,10 +128,37 @@ class MainPage extends React.Component{
     selectImage(){
         dialog.showOpenDialog({title: 'Select OS image for Flashing' , filters:[{name: 'OS Images', extensions: ['img', 'xz']}]},(filePath) => {
             if(filePath === undefined){
-                console.log("No file selected");
+                this.setState((prevState)=>{
+                    return {
+                        progress: {
+                            value: 0,
+                            infoText: 'No Image file is selected'
+                        },
+                        buttonState:{
+                            ums: false,
+                            img: true,
+                            flash: false
+                        }
+                    }
+                });
                 return;
             }
-            console.log(filePath);
+            else{
+                imagePath = filePath[0];
+                this.setState((prevState)=>{
+                    return {
+                        progress: {
+                            value: 0,
+                            infoText: 'Selected Image: ' + path.basename(imagePath)
+                        },
+                        buttonState:{
+                            ums: false,
+                            img: true,
+                            flash: true
+                        }
+                    }
+                });
+            }
         });
     }
 
