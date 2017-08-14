@@ -46,7 +46,7 @@ class MainPage extends React.Component{
                 var status = JSON.parse(data);
             }
             catch(e){ }
-            if(status && status.description) this.setState(function(prevState){
+            if(status && status.description) this.setState((prevState)=>{
                 return {
                     progress: {
                         value: status.complete,
@@ -56,6 +56,20 @@ class MainPage extends React.Component{
                         ums: prevState.buttonState.ums,
                         img: prevState.buttonState.img,
                         flash: prevState.buttonState.flash
+                    }
+                }
+            });
+
+            if(status && status.done) this.setState((prevState)=>{
+                return {
+                    progress: {
+                        value: 0,
+                        infoText: 'Select Image for flashing'
+                    },
+                    buttonState:{
+                        ums: false,
+                        img: true,
+                        flash: false
                     }
                 }
             });
