@@ -80,7 +80,7 @@ class MainPage extends React.Component{
                 'script',
                 {
                     id: ipc.config.id,
-                    script: 'start'
+                    script: 'usbMassStorage'
                 }
             );
         });
