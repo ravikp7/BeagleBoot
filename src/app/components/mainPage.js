@@ -119,7 +119,10 @@ class MainPage extends React.Component{
                 'script',
                 {
                     id: ipc.config.id,
-                    script: 'usbMassStorage'
+                    script: 'usbMassStorage',
+                    device: '',
+                    size: '',
+                    img: ''
                 }
             );
         });
@@ -163,16 +166,27 @@ class MainPage extends React.Component{
     }
 
     writeImage(){
-        IPCserverStarted.then((socket)=>{
-            ipc.server.emit(
-                socket,
-                'script',
-                {
-                    id: ipc.config.id,
-                    script: 'imageWrite'
+        drivelist.list((error, drives)=>{
+            drives.forEach((drive)=>{
+                if(drive.description === 'UMS disk 0'){
+
+                    IPCserverStarted.then((socket)=>{
+                        ipc.server.emit(
+                            socket,
+                            'script',
+                            {
+                                id: ipc.config.id,
+                                script: 'imageWrite',
+                                device: drive.device,
+                                size: drive.size,
+                                img: imagePath
+                            }
+                        );
+                    });
                 }
-            );
+            });
         });
+        
     }
 
     render(){
