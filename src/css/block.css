@@ -1,5 +1,4 @@
 #blocks button{
-    background: #de7224;
     height: 140px;
     width: 140px;
     margin: 0;
@@ -7,6 +6,14 @@
     border-radius: 15px;
     outline: none;
     border: none;
+}
+
+#blocks button:enabled{
+    background: #f76700;
+}
+
+#blocks button:disabled{
+    background: #de7224;
 }
 
 #blocks button:enabled:hover{
