@@ -21,6 +21,7 @@ class MainPage extends React.Component{
         this.state = {progressValue: 0, infoText: 'Go ahead! click USB Mass Storage button to begin'};
         this.umsClick = this.umsClick.bind(this);
         this.selectImage = this.selectImage.bind(this);
+        this.writeImage = this.writeImage.bind(this);
 
         // IPC Server
         window.process.env.IPC_SERVER_ID = `BB-server-${window.process.pid}`;
@@ -83,7 +84,7 @@ class MainPage extends React.Component{
                     script: 'start'
                 }
             );
-        }); 
+        });
     }
 
     selectImage(){
@@ -96,6 +97,19 @@ class MainPage extends React.Component{
         });
     }
 
+    writeImage(){
+        IPCserverStarted.then((socket)=>{
+            ipc.server.emit(
+                socket,
+                'script',
+                {
+                    id: ipc.config.id,
+                    script: 'imageWrite'
+                }
+            );
+        });
+    }
+
     render(){
         return(
             <div>
@@ -103,7 +117,7 @@ class MainPage extends React.Component{
                     <section id='blocks'>
                         <Block id='usb' task='USB Mass Storage' imgURL='./assets/usb-memory.png' handleClick={this.umsClick}/>
                         <Block id='img' task='Select Image' imgURL='./assets/image.png' handleClick={this.selectImage}/>
-                        <Block id='flash' task='Flash' imgURL='./assets/flash.png'/>
+                        <Block id='flash' task='Flash' imgURL='./assets/flash.png' handleClick={this.writeImage}/>
                     </section>
                 </div>
                 <div id='prog'>
