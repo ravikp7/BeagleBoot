@@ -1,5 +1,4 @@
 const React = require('react');
-const BB = window.require('beagle-boot');
 const app = window.require('electron').remote; 
 const dialog = app.dialog;
 const fork = window.require('child_process').fork;
@@ -115,9 +114,9 @@ class MainPage extends React.Component{
             <div>
                 <div id='bl'>    
                     <section id='blocks'>
-                        <Block id='usb' task='USB Mass Storage' imgURL='./assets/usb-memory.png' handleClick={this.umsClick}/>
-                        <Block id='img' task='Select Image' imgURL='./assets/image.png' handleClick={this.selectImage}/>
-                        <Block id='flash' task='Flash' imgURL='./assets/flash.png' handleClick={this.writeImage}/>
+                        <Block disabled={false} task='USB Mass Storage' imgURL='./assets/usb-memory.png' handleClick={this.umsClick}/>
+                        <Block disabled={true} task='Select Image' imgURL='./assets/image.png' handleClick={this.selectImage}/>
+                        <Block disabled={true} task='Flash' imgURL='./assets/flash.png' handleClick={this.writeImage}/>
                     </section>
                 </div>
                 <div id='prog'>
