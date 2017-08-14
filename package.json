@@ -2,15 +2,14 @@
   "name": "beagleboot",
   "version": "0.0.1",
   "description": "Flashing tool for BeagleBone hardware",
-  "main": "./lib/start",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ENV=development electron ./lib/start",
-    "watch": "webpack-dev-server",
+    "start": "electron .",
     "electron-rebuild": "electron-rebuild",
     "build": "webpack",
-    "build-test": "webpack && webpack-dev-server --content-base src/ --inline --hot --port 1234",
-    "start-electron": "electron ./lib/start"
+    "build-watch": "webpack && webpack-dev-server --content-base src/ --inline --hot --port 1234",
+    "start-dev": "ENV=development electron ."
   },
   "repository": {
     "type": "git",
