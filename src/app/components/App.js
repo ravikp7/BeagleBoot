@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 const app = window.require('electron').remote; 
 const dialog = app.dialog;
 const fork = window.require('child_process').fork;
@@ -36,6 +36,7 @@ class App extends React.Component{
                 img: false,
                 flash: false
             },
+            isIPCserverOn: false,
             window: 'main'
         };
         this.settingsClick = this.settingsClick.bind(this);
@@ -70,6 +71,7 @@ class App extends React.Component{
                         img: prevState.buttonState.img,
                         flash: prevState.buttonState.flash
                     },
+                    isIPCserverOn: prevState.isIPCserverOn,
                     window: prevState.window
                 }
             });
@@ -85,6 +87,7 @@ class App extends React.Component{
                         img: true,
                         flash: false
                     },
+                    isIPCserverOn: prevState.isIPCserverOn,
                     window: prevState.window
                 }
             });
@@ -100,6 +103,7 @@ class App extends React.Component{
                         img: false,
                         flash: false
                     },
+                    isIPCserverOn: prevState.isIPCserverOn,
                     window: prevState.window
                 }
             });
@@ -118,6 +122,7 @@ class App extends React.Component{
                         img: prevState.buttonState.img,
                         flash: prevState.buttonState.flash
                     },
+                    isIPCserverOn: prevState.isIPCserverOn,
                     window: 'settings'
                 }
             });
@@ -135,6 +140,7 @@ class App extends React.Component{
                         img: prevState.buttonState.img,
                         flash: prevState.buttonState.flash
                     },
+                    isIPCserverOn: prevState.isIPCserverOn,
                     window: 'main'
                 }
             });
@@ -152,6 +158,7 @@ class App extends React.Component{
                         img: prevState.buttonState.img,
                         flash: prevState.buttonState.flash
                     },
+                    isIPCserverOn: prevState.isIPCserverOn,
                     window: 'about'
                 }
             });
@@ -159,9 +166,25 @@ class App extends React.Component{
 
     umsClick(){
         // Promise, starts IPC server and returns socket for client on resolution
-        IPCserverStarted = new Promise((resolve, reject)=>{
+        if(!this.state.isIPCserverOn) IPCserverStarted = new Promise((resolve, reject)=>{
 
             ipc.server.on('start', () => {
+
+                this.setState((prevState)=>{
+                    return {
+                        progress: {
+                            value: prevState.progress.value,
+                            infoText: prevState.progress.infoText
+                        },
+                        buttonState:{
+                            ums: prevState.buttonState.ums,
+                            img: prevState.buttonState.img,
+                            flash: prevState.buttonState.flash
+                        },
+                        isIPCserverOn: true,
+                        window: prevState.window
+                    }
+                });
                 
                 const child = fork('./lib/elevate.js', [],{
                     silent: true, // in order for the stdin, stdout and stderr to get piped back to the parent process
@@ -218,6 +241,7 @@ class App extends React.Component{
                             img: true,
                             flash: false
                         },
+                        isIPCserverOn: prevState.isIPCserverOn,
                         window: prevState.window
                     }
                 });
@@ -236,6 +260,7 @@ class App extends React.Component{
                             img: true,
                             flash: true
                         },
+                        isIPCserverOn: prevState.isIPCserverOn,
                         window: prevState.window
                     }
                 });
