@@ -94,15 +94,32 @@ class App extends React.Component{
                             window: prevState.window
                         }
                     });
-
+                    /*
                     // Kill Child Process that spwans usbMassStorage script
                     IPCserverStarted.then(function(socket){
                         ipc.server.emit(socket, 'killChild', {});
-                    });
+                    });*/
                 }
+
+                // For UMS device disconnect
+                if(status.disconnect) this.setState((prevState)=>{
+                        return {
+                            progress: {
+                                value: 0,
+                                infoText: 'Go ahead! click USB Mass Storage button to begin'
+                            },
+                            buttonState:{
+                                ums: true,
+                                img: false,
+                                flash: false
+                            },
+                            isIPCserverOn: prevState.isIPCserverOn,
+                            window: prevState.window
+                        }
+                    });
     
                 // For imageWrite script progress
-                if(status.type)this.setState((prevState)=>{
+                if(status.type) this.setState((prevState)=>{
                     return {
                         progress: {
                             value: status.percentage,
