@@ -54,59 +54,72 @@ class App extends React.Component{
         ipc.config.silent = true;
         ipc.serve();
 
+        // On receiving stdout and stderr from elevated process
         ipc.server.on('message', function(data){
             console.log(data);
             try{
                 var status = JSON.parse(data);
+
+                // For usbMassStorage script progress
+                if(status.description) this.setState((prevState)=>{
+                    return {
+                        progress: {
+                            value: status.complete,
+                            infoText: status.description
+                        },
+                        buttonState:{
+                            ums: prevState.buttonState.ums,
+                            img: prevState.buttonState.img,
+                            flash: prevState.buttonState.flash
+                        },
+                        isIPCserverOn: prevState.isIPCserverOn,
+                        window: prevState.window
+                    }
+                });
+                
+                // After emmc mount
+                if(status.done) {
+                    this.setState((prevState)=>{
+                        return {
+                            progress: {
+                                value: 0,
+                                infoText: 'Select Image for flashing'
+                            },
+                            buttonState:{
+                                ums: false,
+                                img: true,
+                                flash: false
+                            },
+                            isIPCserverOn: prevState.isIPCserverOn,
+                            window: prevState.window
+                        }
+                    });
+
+                    // Kill Child Process that spwans usbMassStorage script
+                    IPCserverStarted.then(function(socket){
+                        ipc.server.emit(socket, 'killChild', {});
+                    });
+                }
+    
+                // For imageWrite script progress
+                if(status.type)this.setState((prevState)=>{
+                    return {
+                        progress: {
+                            value: status.percentage,
+                            infoText: 'Writing Image => Percentage: '+status.percentage.toFixed(2)+'%  ---- Speed: '+(status.speed/(1024*1024)).toFixed(2)+'MB/s ---- ETA: '+Math.floor(status.eta/60)+' min.'
+                        },
+                        buttonState:{
+                            ums: false,
+                            img: false,
+                            flash: false
+                        },
+                        isIPCserverOn: prevState.isIPCserverOn,
+                        window: prevState.window
+                    }
+                });
             }
             catch(e){ }
-            if(status && status.description) this.setState((prevState)=>{
-                return {
-                    progress: {
-                        value: status.complete,
-                        infoText: status.description
-                    },
-                    buttonState:{
-                        ums: prevState.buttonState.ums,
-                        img: prevState.buttonState.img,
-                        flash: prevState.buttonState.flash
-                    },
-                    isIPCserverOn: prevState.isIPCserverOn,
-                    window: prevState.window
-                }
-            });
-
-            if(status && status.done) this.setState((prevState)=>{
-                return {
-                    progress: {
-                        value: 0,
-                        infoText: 'Select Image for flashing'
-                    },
-                    buttonState:{
-                        ums: false,
-                        img: true,
-                        flash: false
-                    },
-                    isIPCserverOn: prevState.isIPCserverOn,
-                    window: prevState.window
-                }
-            });
-
-            if(status && status.type)this.setState((prevState)=>{
-                return {
-                    progress: {
-                        value: status.percentage,
-                        infoText: 'Writing Image => Percentage: '+status.percentage.toFixed(2)+'%  ---- Speed: '+(status.speed/(1024*1024)).toFixed(2)+'MB/s ---- ETA: '+Math.floor(status.eta/60)+' min.'
-                    },
-                    buttonState:{
-                        ums: false,
-                        img: false,
-                        flash: false
-                    },
-                    isIPCserverOn: prevState.isIPCserverOn,
-                    window: prevState.window
-                }
-            });
+            
         }.bind(this));
     }
 
