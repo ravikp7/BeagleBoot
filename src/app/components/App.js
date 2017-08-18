@@ -19,7 +19,7 @@ require('../../css/main.css');
 require('../../css/nav.css');
 
 
-var IPCserverStarted;   // Promise, returns socket on resolution
+var ipcClientConnected;   // Promise, returns socket on resolution
 var imagePath;
 
 // Main App
@@ -36,7 +36,7 @@ class App extends React.Component{
                 img: false,
                 flash: false
             },
-            isIPCserverOn: false,
+            isProcessElevated: false,
             window: 'main'
         };
         this.settingsClick = this.settingsClick.bind(this);
@@ -56,6 +56,7 @@ class App extends React.Component{
         ipc.config.id = window.process.env.IPC_SERVER_ID;
         ipc.config.silent = true;
         ipc.serve();
+        ipc.server.start();
 
         // On receiving stdout and stderr from elevated process
         ipc.server.on('message', function(data){
@@ -75,7 +76,7 @@ class App extends React.Component{
                             img: prevState.buttonState.img,
                             flash: prevState.buttonState.flash
                         },
-                        isIPCserverOn: prevState.isIPCserverOn,
+                        isProcessElevated: prevState.isProcessElevated,
                         window: prevState.window
                     }
                 });
@@ -93,7 +94,7 @@ class App extends React.Component{
                                 img: true,
                                 flash: false
                             },
-                            isIPCserverOn: prevState.isIPCserverOn,
+                            isProcessElevated: prevState.isProcessElevated,
                             window: prevState.window
                         }
                     });
@@ -123,7 +124,7 @@ class App extends React.Component{
                             img: prevState.buttonState.img,
                             flash: prevState.buttonState.flash
                         },
-                        isIPCserverOn: prevState.isIPCserverOn,
+                        isProcessElevated: prevState.isProcessElevated,
                         window: prevState.window
                     }
                 });
@@ -157,7 +158,7 @@ class App extends React.Component{
                         img: prevState.buttonState.img,
                         flash: prevState.buttonState.flash
                     },
-                    isIPCserverOn: prevState.isIPCserverOn,
+                    isProcessElevated: prevState.isProcessElevated,
                     window: 'settings'
                 }
             });
@@ -175,7 +176,7 @@ class App extends React.Component{
                         img: prevState.buttonState.img,
                         flash: prevState.buttonState.flash
                     },
-                    isIPCserverOn: prevState.isIPCserverOn,
+                    isProcessElevated: prevState.isProcessElevated,
                     window: 'main'
                 }
             });
@@ -193,7 +194,7 @@ class App extends React.Component{
                         img: prevState.buttonState.img,
                         flash: prevState.buttonState.flash
                     },
-                    isIPCserverOn: prevState.isIPCserverOn,
+                    isProcessElevated: prevState.isProcessElevated,
                     window: 'about'
                 }
             });
@@ -201,7 +202,7 @@ class App extends React.Component{
 
     killChild(){
         // Kill Child Process that spwans usbMassStorage or imageWrite script
-        IPCserverStarted.then(function(socket){
+        ipcClientConnected.then(function(socket){
             ipc.server.emit(socket, 'killChild', {});
         });
     }
@@ -218,7 +219,7 @@ class App extends React.Component{
                     img: false,
                     flash: false
                 },
-                isIPCserverOn: prevState.isIPCserverOn,
+                isProcessElevated: prevState.isProcessElevated,
                 window: prevState.window
             }
         });
@@ -236,11 +237,20 @@ class App extends React.Component{
     }
 
     umsClick(){
-        // Promise, starts IPC server and returns socket for client on resolution
-        if(!this.state.isIPCserverOn) IPCserverStarted = new Promise((resolve, reject)=>{
+        // Promise, forks script which self elevates itself and returns socket on resolution
+        if(!this.state.isProcessElevated) ipcClientConnected = new Promise((resolve, reject)=>{
+            const child = fork('./lib/elevate.js', [],{
+                silent: true, // in order for the stdin, stdout and stderr to get piped back to the parent process
+                env: window.process.env
+            });
+            child.stdout.on('data', (data)=>{
+                reject(`${data}`);
+                child.kill();
+            });
 
-            ipc.server.on('start', () => {
-
+            // This event is emitted by IPC client in elevated process
+            ipc.server.on('script', function(data, socket){
+                child.kill();   // Kill forked Child Process after elevation
                 this.setState((prevState)=>{
                     return {
                         progress: {
@@ -252,38 +262,15 @@ class App extends React.Component{
                             img: prevState.buttonState.img,
                             flash: prevState.buttonState.flash
                         },
-                        isIPCserverOn: true,
+                        isProcessElevated: true,
                         window: prevState.window
                     }
                 });
-                
-                const child = fork('./lib/elevate.js', [],{
-                    silent: true, // in order for the stdin, stdout and stderr to get piped back to the parent process
-                    env: window.process.env
-                });
-                child.stdout.on('data', (data)=>{
-                    console.log(`${data}`);
-                });
-
-                child.stderr.on('data', (data)=>{
-                    console.log(`${data}`);
-                    child.kill();
-                    reject();
-                });
-
-                child.on('close', (code) => {
-                    console.log(`child process exited with code ${code}`);
-                });
-
-                ipc.server.on('script', function(data, socket){
-                    resolve(socket);
-                });
-            });
-
-            ipc.server.start();
+                resolve(socket);
+            }.bind(this));
         });
         
-        IPCserverStarted.then((socket)=>{
+        ipcClientConnected.then((socket)=>{
             ipc.server.emit(
                 socket,
                 'script',
@@ -295,23 +282,25 @@ class App extends React.Component{
                     img: ''
                 }
             );
-        });
 
-        this.setState((prevState)=>{
-            return {
-                progress: {
-                    value: prevState.progress.value,
-                    infoText: prevState.progress.infoText
-                },
-                buttonState:{
-                    ums: false,
-                    img: false,
-                    flash: false
-                },
-                isIPCserverOn: prevState.isIPCserverOn,
-                window: prevState.window
-            }
-        });
+            this.setState((prevState)=>{
+                return {
+                    progress: {
+                        value: prevState.progress.value,
+                        infoText: prevState.progress.infoText
+                    },
+                    buttonState:{
+                        ums: false,
+                        img: false,
+                        flash: false
+                    },
+                    isProcessElevated: prevState.isProcessElevated,
+                    window: prevState.window
+                }
+            });
+        }).catch(function(error){
+            this.showDialogBox('error', 'Sudo-Prompt Error', error);
+        }.bind(this));   
     }
 
     selectImage(){
@@ -328,7 +317,7 @@ class App extends React.Component{
                             img: prevState.buttonState.img,
                             flash: prevState.buttonState.flash
                         },
-                        isIPCserverOn: prevState.isIPCserverOn,
+                        isProcessElevated: prevState.isProcessElevated,
                         window: prevState.window
                     }
                 });
@@ -347,7 +336,7 @@ class App extends React.Component{
                             img: prevState.buttonState.img,
                             flash: true
                         },
-                        isIPCserverOn: prevState.isIPCserverOn,
+                        isProcessElevated: prevState.isProcessElevated,
                         window: prevState.window
                     }
                 });
@@ -365,7 +354,7 @@ class App extends React.Component{
                 drives.forEach((drive)=>{
                     if(drive.description === 'UMS disk 0'){
 
-                        IPCserverStarted.then((socket)=>{
+                        ipcClientConnected.then((socket)=>{
                             ipc.server.emit(
                                 socket,
                                 'script',
@@ -390,7 +379,7 @@ class App extends React.Component{
                                     img: false,
                                     flash: false
                                 },
-                                isIPCserverOn: prevState.isIPCserverOn,
+                                isProcessElevated: prevState.isProcessElevated,
                                 window: prevState.window
                             }
                         });
