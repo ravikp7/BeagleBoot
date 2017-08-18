@@ -324,9 +324,9 @@ class App extends React.Component{
                             infoText: 'No Image file is selected'
                         },
                         buttonState:{
-                            ums: false,
-                            img: true,
-                            flash: false
+                            ums: prevState.buttonState.ums,
+                            img: prevState.buttonState.img,
+                            flash: prevState.buttonState.flash
                         },
                         isIPCserverOn: prevState.isIPCserverOn,
                         window: prevState.window
@@ -343,8 +343,8 @@ class App extends React.Component{
                             infoText: 'Selected Image: ' + path.basename(imagePath)
                         },
                         buttonState:{
-                            ums: false,
-                            img: true,
+                            ums: prevState.buttonState.ums,
+                            img: prevState.buttonState.img,
                             flash: true
                         },
                         isIPCserverOn: prevState.isIPCserverOn,
@@ -357,40 +357,46 @@ class App extends React.Component{
 
     writeImage(){
         drivelist.list((error, drives)=>{
-            drives.forEach((drive)=>{
-                if(drive.description === 'UMS disk 0'){
+            if(error) {
+                this.killChild();
+                showDialogBox('error', 'Drivelist Error', "Can't get the drives list.");
+            }
+            else{
+                drives.forEach((drive)=>{
+                    if(drive.description === 'UMS disk 0'){
 
-                    IPCserverStarted.then((socket)=>{
-                        ipc.server.emit(
-                            socket,
-                            'script',
-                            {
-                                id: ipc.config.id,
-                                script: 'imageWrite',
-                                device: drive.device,
-                                size: drive.size,
-                                img: imagePath
+                        IPCserverStarted.then((socket)=>{
+                            ipc.server.emit(
+                                socket,
+                                'script',
+                                {
+                                    id: ipc.config.id,
+                                    script: 'imageWrite',
+                                    device: drive.device,
+                                    size: drive.size,
+                                    img: imagePath
+                                }
+                            );
+                        });
+
+                        this.setState((prevState)=>{
+                            return {
+                                progress: {
+                                    value: prevState.progress.value,
+                                    infoText: prevState.progress.infoText
+                                },
+                                buttonState:{
+                                    ums: false,
+                                    img: false,
+                                    flash: false
+                                },
+                                isIPCserverOn: prevState.isIPCserverOn,
+                                window: prevState.window
                             }
-                        );
-                    });
-
-                    this.setState((prevState)=>{
-                        return {
-                            progress: {
-                                value: prevState.progress.value,
-                                infoText: prevState.progress.infoText
-                            },
-                            buttonState:{
-                                ums: false,
-                                img: false,
-                                flash: false
-                            },
-                            isIPCserverOn: prevState.isIPCserverOn,
-                            window: prevState.window
-                        }
-                    });
-                }
-            });
+                        });
+                    }
+                });
+            }
         });
         
     }
