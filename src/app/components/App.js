@@ -45,6 +45,9 @@ class App extends React.Component{
         this.umsClick = this.umsClick.bind(this);
         this.selectImage = this.selectImage.bind(this);
         this.writeImage = this.writeImage.bind(this);
+        this.killChild = this.killChild.bind(this);
+        this.resetState = this.resetState.bind(this);
+        this.showDialogBox = this.showDialogBox.bind(this);
 
         // IPC Server
         window.process.env.IPC_SERVER_ID = `BB-server-${window.process.pid}`;
@@ -94,30 +97,20 @@ class App extends React.Component{
                             window: prevState.window
                         }
                     });
-                    /*
-                    // Kill Child Process that spwans usbMassStorage script
-                    IPCserverStarted.then(function(socket){
-                        ipc.server.emit(socket, 'killChild', {});
-                    });*/
                 }
 
                 // For UMS device disconnect
-                if(status.disconnect) this.setState((prevState)=>{
-                        return {
-                            progress: {
-                                value: 0,
-                                infoText: 'Go ahead! click USB Mass Storage button to begin'
-                            },
-                            buttonState:{
-                                ums: true,
-                                img: false,
-                                flash: false
-                            },
-                            isIPCserverOn: prevState.isIPCserverOn,
-                            window: prevState.window
-                        }
-                    });
-    
+                if(status.disconnect) {
+                    this.killChild();
+                    this.showDialogBox('error', 'Board diconnected', status.disconnect);
+                }
+
+                // For usbMassStorage error
+                if(status.umsError) {
+                    this.killChild();
+                    this.showDialogBox('error', 'USB Error', status.umsError);
+                }
+                    
                 // For imageWrite script progress
                 if(status.type) this.setState((prevState)=>{
                     return {
@@ -126,14 +119,26 @@ class App extends React.Component{
                             infoText: 'Writing Image => Percentage: '+status.percentage.toFixed(2)+'%  ---- Speed: '+(status.speed/(1024*1024)).toFixed(2)+'MB/s ---- ETA: '+Math.floor(status.eta/60)+' min.'
                         },
                         buttonState:{
-                            ums: false,
-                            img: false,
-                            flash: false
+                            ums: prevState.buttonState.ums,
+                            img: prevState.buttonState.img,
+                            flash: prevState.buttonState.flash
                         },
                         isIPCserverOn: prevState.isIPCserverOn,
                         window: prevState.window
                     }
                 });
+
+                // After Flashing complete
+                if(status.success) {
+                    this.killChild();
+                    this.showDialogBox('info', 'Success', 'Flashing of the board is complete.');
+                }
+
+                // For imageWrite Error
+                if(status.writeError){
+                    this.killChild();
+                    this.showDialogBox('error', 'Image Write Error', status.writeError);
+                }
             }
             catch(e){ }
             
@@ -192,6 +197,42 @@ class App extends React.Component{
                     window: 'about'
                 }
             });
+    }
+
+    killChild(){
+        // Kill Child Process that spwans usbMassStorage or imageWrite script
+        IPCserverStarted.then(function(socket){
+            ipc.server.emit(socket, 'killChild', {});
+        });
+    }
+
+    resetState(){
+        this.setState((prevState)=>{
+            return {
+                progress: {
+                    value: 0,
+                    infoText: 'Go ahead! click USB Mass Storage button to begin'
+                },
+                buttonState:{
+                    ums: true,
+                    img: false,
+                    flash: false
+                },
+                isIPCserverOn: prevState.isIPCserverOn,
+                window: prevState.window
+            }
+        });
+    }
+
+    showDialogBox(type, title, message){
+        dialog.showMessageBox({
+            type: type,
+            buttons: ['OK'],
+            title: title,
+            message: message
+        }, function(){
+            this.resetState();
+        }.bind(this));
     }
 
     umsClick(){
@@ -255,6 +296,22 @@ class App extends React.Component{
                 }
             );
         });
+
+        this.setState((prevState)=>{
+            return {
+                progress: {
+                    value: prevState.progress.value,
+                    infoText: prevState.progress.infoText
+                },
+                buttonState:{
+                    ums: false,
+                    img: false,
+                    flash: false
+                },
+                isIPCserverOn: prevState.isIPCserverOn,
+                window: prevState.window
+            }
+        });
     }
 
     selectImage(){
@@ -315,6 +372,22 @@ class App extends React.Component{
                                 img: imagePath
                             }
                         );
+                    });
+
+                    this.setState((prevState)=>{
+                        return {
+                            progress: {
+                                value: prevState.progress.value,
+                                infoText: prevState.progress.infoText
+                            },
+                            buttonState:{
+                                ums: false,
+                                img: false,
+                                flash: false
+                            },
+                            isIPCserverOn: prevState.isIPCserverOn,
+                            window: prevState.window
+                        }
                     });
                 }
             });
