@@ -237,6 +237,22 @@ class App extends React.Component{
     }
 
     umsClick(){
+        this.setState((prevState)=>{
+            return {
+                progress: {
+                    value: prevState.progress.value,
+                    infoText: prevState.progress.infoText
+                },
+                buttonState:{
+                    ums: false,
+                    img: false,
+                    flash: false
+                },
+                isProcessElevated: prevState.isProcessElevated,
+                window: prevState.window
+            }
+        });
+
         // Promise, forks script which self elevates itself and returns socket on resolution
         if(!this.state.isProcessElevated) ipcClientConnected = new Promise((resolve, reject)=>{
             const child = fork('./lib/elevate.js', [],{
@@ -286,22 +302,6 @@ class App extends React.Component{
                     img: ''
                 }
             );
-
-            this.setState((prevState)=>{
-                return {
-                    progress: {
-                        value: prevState.progress.value,
-                        infoText: prevState.progress.infoText
-                    },
-                    buttonState:{
-                        ums: false,
-                        img: false,
-                        flash: false
-                    },
-                    isProcessElevated: prevState.isProcessElevated,
-                    window: prevState.window
-                }
-            });
         }).catch(function(error){
             this.showDialogBox('error', 'Sudo-Prompt Error', error);
         }.bind(this));   
