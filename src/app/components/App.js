@@ -247,6 +247,10 @@ class App extends React.Component{
                 reject(`${data}`);
                 child.kill();
             });
+            child.stderr.on('data', (data)=>{
+                reject(`${data}`);
+                child.kill();
+            })
 
             // This event is emitted by IPC client in elevated process
             ipc.server.on('script', function(data, socket){
