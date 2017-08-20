@@ -9,7 +9,7 @@
     "electron-rebuild": "electron-rebuild",
     "build": "webpack",
     "build-watch": "webpack && webpack-dev-server --content-base src/ --inline --hot --port 1234",
-    "start-dev": "ENV=development electron ."
+    "start-dev": "cross-env NODE_ENV=development electron ."
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "babel-loader": "^7.1.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.28.4",
     "electron": "^1.6.11",
     "electron-rebuild": "^1.5.11",

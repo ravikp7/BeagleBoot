@@ -16,7 +16,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({width: 700, height: 500, resizable: false})
 
   // and load the index.html of the app.
-  if(process.env.ENV === 'development'){
+  if(process.env.NODE_ENV === 'development'){
 
     mainWindow.loadURL('http://localhost:1234');
   }
