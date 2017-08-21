@@ -348,6 +348,21 @@ class App extends React.Component{
     }
 
     writeImage(){
+        this.setState((prevState)=>{
+            return {
+                progress: {
+                    value: prevState.progress.value,
+                    infoText: 'Starting Flashing in a bit..'
+                },
+                buttonState:{
+                    ums: false,
+                    img: false,
+                    flash: false
+                },
+                isProcessElevated: prevState.isProcessElevated,
+                window: prevState.window
+            }
+        });
         drivelist.list((error, drives)=>{
             if(error) {
                 this.killChild();
@@ -369,22 +384,6 @@ class App extends React.Component{
                                     img: imagePath
                                 }
                             );
-                        });
-
-                        this.setState((prevState)=>{
-                            return {
-                                progress: {
-                                    value: prevState.progress.value,
-                                    infoText: prevState.progress.infoText
-                                },
-                                buttonState:{
-                                    ums: false,
-                                    img: false,
-                                    flash: false
-                                },
-                                isProcessElevated: prevState.isProcessElevated,
-                                window: prevState.window
-                            }
                         });
                     }
                 });
