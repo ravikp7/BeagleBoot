@@ -270,7 +270,6 @@ class App extends React.Component{
 
             // This event is emitted by IPC client in elevated process
             ipc.server.on('script', function(data, socket){
-                child.kill();   // Kill forked Child Process after elevation
                 this.setState((prevState)=>{
                     return {
                         progress: {
