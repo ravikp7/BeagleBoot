@@ -423,9 +423,9 @@ class App extends React.Component{
                     <nav className='navbar' id='mainNav'>
                         <ul>
                             <li id='brand'><h1 className='Text'>BeagleBoot</h1></li>
-                            <li id='brand-text'><h5 className='Text'>Flash BeagleBone board quickly!</h5></li>
-                            <li id='button'><Block task='' imgURL='./assets/settings.png' handleClick={this.settingsClick}/></li>
-                            <li id='button'><Block task='' imgURL='./assets/info.png' handleClick={this.aboutClick}/></li>
+                            <li id='brand-text'><p className='Text'>Flash BeagleBone board quickly!</p></li>
+                            <li id='button1'><Block task='' imgURL='./assets/settings.png' handleClick={this.settingsClick}/></li>
+                            <li id='button2'><Block task='' imgURL='./assets/info.png' handleClick={this.aboutClick}/></li>
                         </ul>
                     </nav>
                 </div>
@@ -433,7 +433,7 @@ class App extends React.Component{
                     {WindowComponent}
                 </div>
                 <div id='footer'>
-                    
+                    <p className='Text'>Powered by </p><button id='etcher-logo'><img src='./assets/etcher-logo.png'/></button>
                 </div>
             </div>
         );

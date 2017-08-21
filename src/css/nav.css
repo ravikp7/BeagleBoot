@@ -3,7 +3,7 @@ nav ul{
     list-style-type: none;
     padding: 0;
     display: flex;
-    text-align: center;
+    
 }
 
 #mainNav li{
@@ -11,11 +11,19 @@ nav ul{
 }
 
 #brand{
-    flex-basis: 5%;
+    flex-basis: 35%;
 }
 
 #brand-text{
-    flex-basis: 85%;
+    flex-basis: 60%;
+}
+
+#button1{
+    flex-basis: 2.5%;
+}
+
+#button2{
+    flex-basis: 2.5%;
 }
 
 .pane{
@@ -32,11 +40,7 @@ nav ul{
 }
 
 #brand h1{
-    margin: 0;
-}
-
-#brand-text h5{
-    margin: 5px;
+    margin-top: 1vh;
 }
 
 .navbar button{

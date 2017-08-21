@@ -8,7 +8,7 @@ class Info extends React.Component{
     render(){
         return(
             <div id='infoContainer'>
-                <h5>{this.props.value}</h5>
+                <p id='info-text'>{this.props.value}</p>
             </div>
         );
     }

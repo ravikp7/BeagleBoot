@@ -11,7 +11,7 @@ class Block extends React.Component{
         return(
             <button className='block' onClick={this.props.handleClick} disabled={this.props.disabled}>
                 <img src={this.props.imgURL}/>
-                <h4 className='Text'>{this.props.task}</h4>
+                <p className='Text' id='block-text'>{this.props.task}</p>
             </button>
         );
     }

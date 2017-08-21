@@ -29,6 +29,14 @@ body{
     font-family: 'Arial';
 }
 
+#block-text{
+    font-size: 13px;
+}
+
+#info-text{
+    font-size: 15px;
+}
+
 #prog{
     display: flex;
     width: 100%;
@@ -53,4 +61,25 @@ body{
 
 #mainBody{
     height: 70vh;
+}
+
+#etcher-logo{
+    height: 15vh;
+    width: 30vh;
+    margin: 0;
+    text-align: center;
+    outline: none;
+    border: none;
+    background: #00284f;
+    padding: 0;
+}
+
+#etcher-logo:enabled:hover{
+    cursor: pointer;
+    background: #00284f;
+}
+
+#etcher-logo img{
+    max-width: 90%;
+    max-height: 100%;
 }
