@@ -8,7 +8,7 @@
 }
 
 body{
-    background: #fcf7ed;
+    background: #002D5C;
     margin: 0;
 }
 
@@ -34,7 +34,9 @@ body{
 }
 
 #info-text{
-    font-size: 15px;
+    color: white;
+    font-size: 14px;
+    font-family: 'Arial'
 }
 
 #prog{

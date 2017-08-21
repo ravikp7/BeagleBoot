@@ -1,4 +1,5 @@
 var React = require('react');
+require('../../css/main.css');
 
 class Info extends React.Component{
     constructor(props){

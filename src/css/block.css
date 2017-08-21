@@ -9,11 +9,11 @@
 }
 
 #blocks button:enabled{
-    background: #f76700;
+    background: rgb(255, 0, 108);
 }
 
 #blocks button:disabled{
-    background: #de7224;
+    background: #8B8B8B;
 }
 
 #blocks button:enabled:hover{
@@ -22,7 +22,7 @@
 }
 
 #blocks button:enabled:active{
-    background: #078cb2;
+    background: #00284f;
 }
 
 #blocks img{
