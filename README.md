@@ -1,6 +1,8 @@
 # BeagleBoot
 A cross platform flasher/updater app for BeagleBone hardware.
 
+### Currently Supported Platrforms: Linux, OSX
+
 ## Installation
 1. Install dependencies
 ```
