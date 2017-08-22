@@ -13,6 +13,7 @@ import Block from './Block';
 import MainPage from './mainPage';
 import Settings from './settings';
 import About from './about';
+import TitleBar from './titleBar';
 
 // StyleSheets
 require('../../css/main.css');
@@ -418,6 +419,7 @@ class App extends React.Component{
 
         return(
             <div className='wrapper'>
+                <TitleBar/>
                 <div className='pane'>
                     <nav className='navbar' id='mainNav'>
                         <ul>

@@ -1,0 +1,8 @@
+.titleBar{
+    background: #00284f;
+    width: 100%;
+    height: 5vh;
+    margin: 0;
+    overflow: hidden;
+    -webkit-app-region: drag;
+}
