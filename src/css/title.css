@@ -6,3 +6,45 @@
     overflow: hidden;
     -webkit-app-region: drag;
 }
+
+#titleDiv{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 7px;
+    padding-right: 10px;
+}
+
+button{
+    background: #00284f;
+    height: 28px;
+    width: 28px;
+    margin: 0;
+    text-align: center;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+img{
+    max-width: 80%;
+    max-height: 80%; 
+}
+
+#minimize button:active{
+    background: #001d3a;
+}
+
+#minimize{
+    margin-left: auto;
+}
+
+#close button:enabled:hover{
+    cursor: pointer;
+    background: #ED3538;
+}
+
+#minimize button:enabled:hover{
+    cursor: pointer;
+    background: #00A2F7;
+}
