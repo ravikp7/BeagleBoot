@@ -44,6 +44,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.4",
     "electron": "^1.6.11",
+    "electron-builder": "^19.24.1",
     "electron-rebuild": "^1.5.11",
     "style-loader": "^0.18.2",
     "webpack": "^3.1.0",
