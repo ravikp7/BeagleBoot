@@ -9,7 +9,7 @@
 }
 
 #blocks button:enabled{
-    background: rgb(255, 0, 108);
+    background: #ff4800;
 }
 
 #blocks button:disabled{
