@@ -3,6 +3,7 @@ A cross platform flasher/updater app for BeagleBone hardware.
 <p align='center'>
     <img src='doc/screenshot.png' alt='App screenshot'/>
 </p>
+
 ### Currently Supported Platrforms: Linux, OSX
 
 ## Installation
