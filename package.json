@@ -9,7 +9,8 @@
     "electron-rebuild": "electron-rebuild",
     "build": "webpack",
     "build-watch": "webpack && webpack-dev-server --content-base src/ --inline --hot --port 1234",
-    "start-dev": "cross-env NODE_ENV=development electron ."
+    "start-dev": "cross-env NODE_ENV=development electron .",
+    "dist": "npm run build && electron-builder --publish onTagOrDraft"
   },
   "repository": {
     "type": "git",
@@ -49,5 +50,52 @@
     "style-loader": "^0.18.2",
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.1"
+  },
+  "postinstall": "electron-builder install-app-deps",
+  "build": {
+    "appID": "com.ravikp7.BeagleBoot",
+    "productName": "BeagleBoot",
+    "category": "public.app-category.education",
+    "copyright": "Copyright © 2017 ${author}",
+    "files": [
+      "lib/",
+      "node_modules",
+      "src/assets",
+      "src/build",
+      "src/index.html",
+      "LICENSE",
+      "main.js",
+      "package.json",
+      "README.md"
+    ],
+    "dmg": {
+      "icon": "src/assets/icons/icon.icns",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/icons/icon.ico"
+    },
+    "linux": {
+      "icon": "src/assets/icons/icon.png",
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
+  },
+  "directories": {
+    "output": "release"
   }
 }
