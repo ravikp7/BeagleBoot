@@ -1,4 +1,6 @@
-# BeagleBoot
+# BeagleBoot 
+[![Build Status](https://travis-ci.org/ravikp7/BeagleBoot.svg?branch=master)](https://travis-ci.org/ravikp7/BeagleBoot)
+___
 A cross platform flasher/updater app for BeagleBone hardware.
 <p align='center'>
     <img src='doc/screenshot.png' alt='App screenshot'/>
