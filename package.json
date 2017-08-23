@@ -1,6 +1,6 @@
 {
   "name": "beagleboot",
-  "version": "0.0.1",
+  "version": "0.9.0",
   "description": "Flashing tool for BeagleBone hardware",
   "main": "main.js",
   "scripts": {
