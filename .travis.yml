@@ -1,0 +1,39 @@
+osx_image: xcode8.3
+
+sudo: required
+dist: trusty
+
+language: node_js
+node_js:
+  - 6
+
+
+env: CC=g++-4.8 CXX=g++-4.8
+
+os:
+  - linux
+  - osx
+
+
+
+cache:
+  directories:
+    - node_modules
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+      - build-essential
+      - libusb-1.0-0-dev
+      - libudev-dev
+
+before_install:
+  - npm install -g node-gyp
+
+script:
+  - npm run dist
