@@ -20,7 +20,7 @@
     "BeagleBone",
     "Flash"
   ],
-  "author": "Ravi Kumar Prasad (7ravikp@gmail.com)",
+  "author": "Ravi Kumar Prasad <7ravikp@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ravikp7/BeagleBoot/issues"
