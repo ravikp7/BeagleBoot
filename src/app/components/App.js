@@ -256,7 +256,7 @@ class App extends React.Component{
 
         // Promise, forks script which self elevates itself and returns socket on resolution
         if(!this.state.isProcessElevated) ipcClientConnected = new Promise((resolve, reject)=>{
-            const child = fork('./lib/elevate.js', [],{
+            const child = fork(window.__dirname+'/../lib/elevate.js', [],{
                 silent: true, // in order for the stdin, stdout and stderr to get piped back to the parent process
                 env: window.process.env
             });
