@@ -10,7 +10,8 @@
     "build": "webpack && electron-builder",
     "build-watch": "webpack && webpack-dev-server --content-base src/ --inline --hot --port 1234",
     "start-dev": "cross-env NODE_ENV=development electron .",
-    "dist": "npm run build && electron-builder --publish onTagOrDraft"
+    "dist": "npm run build && electron-builder --publish onTagOrDraft",
+    "postinstall": "electron-builder install-app-deps"
   },
   "repository": {
     "type": "git",
@@ -51,7 +52,6 @@
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.1"
   },
-  "postinstall": "electron-builder install-app-deps",
   "build": {
     "appId": "com.ravikp7.BeagleBoot",
     "productName": "BeagleBoot",
@@ -86,7 +86,8 @@
       ]
     },
     "mac": {
-      "icon": "src/assets/icons/icon.icns"
+      "icon": "src/assets/icons/icon.icns",
+      "category": "public.app-category.utilities"
     },
     "win": {
       "target": "nsis",
@@ -94,9 +95,9 @@
     },
     "linux": {
       "icon": "src/assets/icons",
+      "category": "embedded",
       "target": [
-        "AppImage",
-        "deb"
+        "AppImage"
       ]
     }
   }
