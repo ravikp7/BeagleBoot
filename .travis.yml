@@ -1,19 +1,19 @@
-osx_image: xcode8.3
-
 sudo: required
-dist: trusty
 
 language: node_js
 node_js:
   - 6
 
 
-env: CXX=g++-4.8
+matrix:
+  include:
+    - os: linux
+      env: CXX=g++-4.8
+      dist: trusty
 
-os:
-  - linux
-  - osx
-
+    - os: osx
+      osx_image: xcode8.3
+      compiler: gcc
 
 
 cache:
