@@ -53,6 +53,7 @@
   },
   "build": {
     "appId": "com.ravikp7.BeagleBoot",
+    "buildDependenciesFromSource": true,
     "productName": "BeagleBoot",
     "copyright": "Copyright © 2017 ${author}",
     "directories": {
