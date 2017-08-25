@@ -97,7 +97,10 @@
       "icon": "src/assets/icons",
       "category": "embedded",
       "target": [
-        "AppImage"
+        "AppImage",
+        "deb",
+        "rpm",
+        "tar.gz"
       ]
     }
   }
