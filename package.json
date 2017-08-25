@@ -10,8 +10,7 @@
     "build": "webpack && electron-builder",
     "build-watch": "webpack && webpack-dev-server --content-base src/ --inline --hot --port 1234",
     "start-dev": "cross-env NODE_ENV=development electron .",
-    "dist": "npm run build && electron-builder --publish onTagOrDraft",
-    "postinstall": "electron-builder install-app-deps"
+    "dist": "npm run build && electron-builder --publish onTagOrDraft"
   },
   "repository": {
     "type": "git",
@@ -103,5 +102,6 @@
         "tar.gz"
       ]
     }
-  }
+  },
+  "postinstall": "install-app-deps"
 }
