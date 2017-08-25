@@ -103,5 +103,5 @@
       ]
     }
   },
-  "postinstall": "install-app-deps"
+  "postinstall": "electron-builder install-app-deps"
 }
