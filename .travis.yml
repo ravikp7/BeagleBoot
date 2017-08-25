@@ -30,6 +30,7 @@ addons:
       - g++-4.8
       - build-essential
       - libudev-dev
+      - rpm-build
 
 before_install:
   - npm install -g node-gyp
