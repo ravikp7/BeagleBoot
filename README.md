@@ -2,7 +2,7 @@
 
 A cross platform flashing app for BeagleBone hardware. This app aims to provide a easy to use GUI to flash BeagleBone's onboard emmc.
 ___
-### [Download](https://github.com/ravikp7/BeagleBoot/releases) | [Architecture](https://github.com/ravikp7/BeagleBoot/blob/master/docs/ARCHITECTURE.md) | [Development](https://github.com/ravikp7/BeagleBoot/blob/master/docs/DEVELOPMENT.md)
+### [Download](https://github.com/ravikp7/BeagleBoot/releases) | [Architecture](https://github.com/ravikp7/BeagleBoot/blob/master/doc/ARCHITECTURE.md) | [Development](https://github.com/ravikp7/BeagleBoot/blob/master/doc/DEVELOPMENT.md)
 ___
 <p align='center'>
     <img src='doc/screenshot.png' alt='App screenshot'/>
