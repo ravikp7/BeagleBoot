@@ -7,6 +7,8 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
+var isFrame = (process.env.NODE_ENV === 'development')? true: false
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -19,7 +21,7 @@ function createWindow () {
     resizable: false,
     icon: path.join(__dirname, 'src/assets/icons/png/icon-128x128.png'),
     titleBarStyle: 'hiddenInset',
-    frame: false
+    frame: isFrame
   })
 
   // and load the index.html of the app.
