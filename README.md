@@ -1,38 +1,15 @@
-# BeagleBoot 
-[![Build Status](https://travis-ci.org/ravikp7/BeagleBoot.svg?branch=master)](https://travis-ci.org/ravikp7/BeagleBoot)
+# BeagleBoot [![Build Status](https://travis-ci.org/ravikp7/BeagleBoot.svg?branch=master)](https://travis-ci.org/ravikp7/BeagleBoot) [![GitHub (pre-)release](https://img.shields.io/github/release/ravikp7/BeagleBoot/all.svg)]()
+
+A cross platform flashing app for BeagleBone hardware. This app aims to provide a easy to use GUI to flash BeagleBone's onboard emmc.
 ___
-A cross platform flasher/updater app for BeagleBone hardware.
+### [Download](https://github.com/ravikp7/BeagleBoot/releases) | [Architecture](https://github.com/ravikp7/BeagleBoot/blob/master/docs/ARCHITECTURE.md) | [Development](https://github.com/ravikp7/BeagleBoot/blob/master/docs/DEVELOPMENT.md)
+___
 <p align='center'>
     <img src='doc/screenshot.png' alt='App screenshot'/>
 </p>
 
-### Currently Supported Platrforms: Linux, OSX
+### Currently Supported Platrforms: Linux, OSX (10.9 +)
+___
+This project's development started during `Google Summer of Code 2017 under BeagleBoard Organisation`. This app is accompained by the underlying [node-beagle-boot](https://github.com/ravikp7/node-beagle-boot) `usb bootloader server` for the BeagleBone hardware platform developed during same period.
 
-## Installation
-1. Install dependencies
-```
-npm install
-```
-2. This step is required to rebuild `usb` module binaries if node version installed doesn't match with electron's node version.
-```
-npm run electron-rebuild
-```
-#### For development
-3. Building static `src/build/bundle.js` from `src/index.js` and starting `webpack-dev` server to update js (including UI components) without refresh via HMR for faster development. Serves at `localhost:1234`
-```
-npm run build-watch
-``` 
-4. Run electron app in dev mode which just runs page served by webpack server.
-```
-npm run start-dev
-```
-#### For distribution version
-3. Building static `src/build/bundle.js` from `src/index.js`
-```
-npm run build
-```
-4. Start electron app.
-```
-npm start
-```
-
+See [this video](https://www.youtube.com/watch?v=5JYfh2_0x8s) for more info about the project.
