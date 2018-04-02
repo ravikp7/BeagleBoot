@@ -16,12 +16,18 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    show: false,
+    backgroundColor: '#00284f',
     width: 700, 
     height: 500, 
     resizable: false,
     icon: path.join(__dirname, 'src/assets/icons/png/icon-128x128.png'),
     titleBarStyle: 'hiddenInset',
     frame: isFrame
+  })
+
+  mainWindow.once('ready-to-show', ()=>{
+    mainWindow.show()
   })
 
   // and load the index.html of the app.

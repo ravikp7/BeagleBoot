@@ -1,12 +1,5 @@
 const React = require('react');
-const app = window.require('electron').remote; 
-const dialog = app.dialog;
-const fork = window.require('child_process').fork;
-const sudo = window.require('sudo-prompt');
 const ipc = window.require('node-ipc');
-const fs = window.require('fs');
-const drivelist = window.require('drivelist');
-const path = window.require('path');
 
 // React Components
 import Block from './Block';
@@ -227,6 +220,7 @@ class App extends React.Component{
     }
 
     showDialogBox(type, title, message){
+        const dialog = window.require('electron').remote.dialog; 
         dialog.showMessageBox({
             type: type,
             buttons: ['OK'],
@@ -256,6 +250,7 @@ class App extends React.Component{
 
         // Promise, forks script which self elevates itself and returns socket on resolution
         if(!this.state.isProcessElevated) ipcClientConnected = new Promise((resolve, reject)=>{
+            const fork = window.require('child_process').fork;
             const child = fork(window.__dirname+'/../lib/elevate.js', [],{
                 silent: true, // in order for the stdin, stdout and stderr to get piped back to the parent process
                 env: window.process.env
@@ -308,6 +303,7 @@ class App extends React.Component{
     }
 
     selectImage(){
+        const dialog = window.require('electron').remote.dialog;
         dialog.showOpenDialog({title: 'Select OS image for Flashing' , filters:[{name: 'OS Images', extensions: ['img', 'xz']}]},(filePath) => {
             if(filePath === undefined){
                 this.setState((prevState)=>{
@@ -329,6 +325,7 @@ class App extends React.Component{
             }
             else{
                 imagePath = filePath[0];
+                const path = window.require('path');
                 this.setState((prevState)=>{
                     return {
                         progress: {
@@ -364,6 +361,7 @@ class App extends React.Component{
                 window: prevState.window
             }
         });
+        const drivelist = window.require('drivelist');
         drivelist.list((error, drives)=>{
             if(error) {
                 this.killChild();
